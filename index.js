@@ -32,10 +32,10 @@ module.exports = function (src) {
     walk(function (node) {
         if (node.type === 'Identifier'
         && lookup(node) === undefined) {
-            if (node.parent.type === 'Property') return;
+            if (node.parent.type === 'Property'
+            && node.parent.key === node) return;
             if (node.parent.type === 'MemberExpression'
             && node.parent.property === node) return;
-            
             if (isFunction(node.parent)) return;
             
             if (node.parent.type === 'AssignmentExpression') {
