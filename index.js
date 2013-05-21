@@ -17,6 +17,10 @@ module.exports = function (src) {
                 locals[id][d.id.name] = d;
             }
         }
+        else if (node.type === 'CatchClause') {
+            var id = getScope(node);
+            locals[id][node.param.name] = node.param
+        }
         else if (isFunction(node)) {
             var id = getScope(node.parent);
             if (node.id) locals[id][node.id.name] = node;
