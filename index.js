@@ -115,6 +115,7 @@ function idOf (node) {
 }
 
 function keyOf (node) {
+    if (node.lexicalScopeKey) return node.lexicalScopeKey;
     var p = node.parent;
     var ks = objectKeys(p);
     var kv = { keys : [], values : [], top : [] };
@@ -142,7 +143,7 @@ function keyOf (node) {
     if (node.parent.type === 'CallExpression') {
         res.unshift.apply(res, keyOf(node.parent.parent));
     }
-    return res;
+    return node.lexicalScopeKey = res;
 }
 
 var isArray = Array.isArray || function (xs) {
