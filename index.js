@@ -116,6 +116,7 @@ module.exports = function (src) {
     }
     
     function getScope (node) {
+        if (node._cachedScope) return node._cachedScope;
         for (
             var p = node;
             !isFunction(p) && p.type !== 'Program';
@@ -123,6 +124,7 @@ module.exports = function (src) {
         );
         var id = idOf(p);
         if (!locals[id]) locals[id] = {};
+        node._cachedScope = id;
         return id;
     }
     
