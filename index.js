@@ -1,6 +1,6 @@
 var astw = require('astw');
 
-module.exports = function (src) {
+module.exports = function (src, opts) {
     var locals = {};
     var implicit = {};
     var exported = {};
@@ -13,7 +13,7 @@ module.exports = function (src) {
     && typeof src.copy === 'function' && typeof src.toString === 'function') {
         src = src.toString('utf8');
     }
-    var walk = astw(src);
+    var walk = astw(src, opts);
     
     walk(function (node) {
         if (node.type === 'VariableDeclaration') {
